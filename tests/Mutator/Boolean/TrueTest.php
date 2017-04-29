@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Boolean;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class TrueTest extends \PHPUnit_Framework_TestCase
+class TrueTest extends TestCase
 {
     public function testReturnsTokenEquivalentToFalse()
     {

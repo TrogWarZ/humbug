@@ -13,8 +13,9 @@ namespace Humbug\Test\Mutator\ReturnValue;
 
 use Humbug\Mutator\ReturnValue\FloatValue;
 use Humbug\Utility\Tokenizer;
+use PHPUnit\Framework\TestCase;
 
-class FloatValueTest extends \PHPUnit_Framework_TestCase
+class FloatValueTest extends TestCase
 {
     public function testMutatesWithValueReturnOne()
     {

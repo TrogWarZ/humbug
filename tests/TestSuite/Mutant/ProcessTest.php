@@ -12,9 +12,10 @@ namespace Humbug\Test\TestSuite\Mutant;
 
 use Humbug\TestSuite\Mutant\Process;
 use Humbug\TestSuite\Mutant\Result;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
-class ProcessTest extends \PHPUnit_Framework_TestCase
+class ProcessTest extends TestCase
 {
     public function testPropertiesReturnConstructorAssignedValues()
     {

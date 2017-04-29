@@ -11,8 +11,9 @@
 namespace Humbug\Test\TestSuite\Mutant;
 
 use Humbug\TestSuite\Mutant\Collector;
+use PHPUnit\Framework\TestCase;
 
-class CollectorTest extends \PHPUnit_Framework_TestCase
+class CollectorTest extends TestCase
 {
     public function testAddShadowToCollector()
     {

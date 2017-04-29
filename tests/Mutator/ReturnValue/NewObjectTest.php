@@ -13,8 +13,9 @@ namespace Humbug\Test\Mutator\ReturnValue;
 
 use Humbug\Mutator\ReturnValue\NewObject;
 use Humbug\Utility\Tokenizer;
+use PHPUnit\Framework\TestCase;
 
-class NewObjectTest extends \PHPUnit_Framework_TestCase
+class NewObjectTest extends TestCase
 {
     public function testMutatesWithValueReturnTrue()
     {

@@ -14,8 +14,9 @@
 namespace Humbug\Test\Config;
 
 use Humbug\Config\JsonParser;
+use PHPUnit\Framework\TestCase;
 
-class JsonParserTest extends \PHPUnit_Framework_TestCase
+class JsonParserTest extends TestCase
 {
     /**
      * @var JsonParser

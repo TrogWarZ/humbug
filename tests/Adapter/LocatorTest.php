@@ -3,8 +3,9 @@
 namespace Humbug\Test\Adapter;
 
 use Humbug\Adapter\Locator;
+use PHPUnit\Framework\TestCase;
 
-class LocatorTest extends \PHPUnit_Framework_TestCase
+class LocatorTest extends TestCase
 {
     public function testShouldLocateMany()
     {

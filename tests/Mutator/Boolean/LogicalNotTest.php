@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Boolean;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class LogicalNotTest extends \PHPUnit_Framework_TestCase
+class LogicalNotTest extends TestCase
 {
     public function testReturnsTokenEquivalentToWhitespace()
     {

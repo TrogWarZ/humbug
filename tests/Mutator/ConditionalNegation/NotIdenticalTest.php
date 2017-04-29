@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\ConditionalNegation;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class NotIdenticalTest extends \PHPUnit_Framework_TestCase
+class NotIdenticalTest extends TestCase
 {
     public function testReturnsTokenEquivalentToIdentical()
     {

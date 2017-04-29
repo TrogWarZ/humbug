@@ -12,11 +12,10 @@
 namespace Humbug\Test;
 
 use Humbug\Generator;
-use Humbug\Mutable;
-use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 
-class GeneratorTest extends \PHPUnit_Framework_TestCase
+class GeneratorTest extends TestCase
 {
     /**
      * @var string
@@ -33,11 +32,6 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $this->searchDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'root' . DIRECTORY_SEPARATOR . 'base1';
 
         $this->finder = $this->createPhpFileFinder($this->searchDir);
-    }
-
-    protected function tearDown()
-    {
-        m::close();
     }
 
     public function testShouldCollateAllFilesValidForMutationTesting()

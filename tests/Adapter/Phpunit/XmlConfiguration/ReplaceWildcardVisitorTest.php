@@ -15,8 +15,9 @@ namespace Humbug\Test\Adapter\Phpunit\XmlConfiguration;
 
 use Humbug\Adapter\Locator;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ReplaceWildcardVisitor;
+use PHPUnit\Framework\TestCase;
 
-class ReplaceWildcardVisitorTest extends \PHPUnit_Framework_TestCase
+class ReplaceWildcardVisitorTest extends TestCase
 {
     /**
      * @var ReplaceWildcardVisitor

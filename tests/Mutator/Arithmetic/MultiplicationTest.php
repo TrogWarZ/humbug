@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Arithmetic;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class MultiplicationTest extends \PHPUnit_Framework_TestCase
+class MultiplicationTest extends TestCase
 {
     public function testReturnsTokenEquivalentToDivisionOperator()
     {

@@ -1,8 +1,9 @@
 <?php
 
-class PassTest extends \PHPUnit_Framework_TestCase
-{
+use PHPUnit\Framework\TestCase;
 
+class PassTest extends TestCase
+{
     /**
      * @group PHPUnitRunnerTesting
      */

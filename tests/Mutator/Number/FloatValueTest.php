@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Number;
 
 use Humbug\Mutator\Number\FloatValue;
+use PHPUnit\Framework\TestCase;
 
-class FloatValueTest extends \PHPUnit_Framework_TestCase
+class FloatValueTest extends TestCase
 {
     public function testReturnsTokenSwitchingZeroForOne()
     {

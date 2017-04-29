@@ -13,8 +13,9 @@ namespace Humbug\Test\Mutator\ReturnValue;
 
 use Humbug\Mutator\ReturnValue\IntegerValue;
 use Humbug\Utility\Tokenizer;
+use PHPUnit\Framework\TestCase;
 
-class IntegerValueTest extends \PHPUnit_Framework_TestCase
+class IntegerValueTest extends TestCase
 {
     public function testMutatesWithValueReturnOne()
     {

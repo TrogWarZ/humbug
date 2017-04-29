@@ -11,8 +11,9 @@
 namespace Humbug\Test;
 
 use Humbug\Mutation;
+use PHPUnit\Framework\TestCase;
 
-class MutationTest extends \PHPUnit_Framework_TestCase
+class MutationTest extends TestCase
 {
     public function testMutationProperties()
     {

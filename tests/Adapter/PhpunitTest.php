@@ -12,28 +12,41 @@
 namespace Humbug\Test\Adapter;
 
 use Humbug\Adapter\Phpunit;
-use Mockery as m;
+use Humbug\Container;
+use PHPUnit\Framework\TestCase;
 
-class PhpunitTest extends \PHPUnit_Framework_TestCase
+class PhpunitTest extends TestCase
 {
     private $root;
     private $tmpDir;
+    private $container;
 
     public function setUp()
     {
-        $this->root = dirname(__FILE__) . '/_files';
+        $this->root = __DIR__ . '/_files';
 
-        $tmpDir = sys_get_temp_dir() . '/' . rand(1000000, 9999999);
+        $tmpDir = sys_get_temp_dir() . '/' . mt_rand(1000000, 9999999);
 
         if (!is_dir($tmpDir)) {
             mkdir($tmpDir);
         }
 
         $this->tmpDir = $tmpDir;
+
+        $this->container = $this->createMock(Container::class);
+        $this->container->method('getAdapterOptions')->willReturn([]);
+        $this->container->method('getTempDirectory')->willReturn($this->tmpDir);
+        $this->container->method('getBootstrap')->willReturn('');
+        $this->container->method('getTimeout')->willReturn(1200);
+        $this->container->method('getSourceList')->willReturn($this->root);
+        $this->container->method('getTestRunDirectory')->willReturn($this->root);
+        $this->container->method('getBaseDirectory')->willReturn($this->root);
     }
 
     public function tearDown()
     {
+        $this->container = null;
+
         if (file_exists($this->tmpDir . '/phpunit.times.humbug.json')) {
             unlink($this->tmpDir . '/phpunit.times.humbug.json');
         }
@@ -57,8 +70,6 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
         if (file_exists($this->tmpDir)) {
             rmdir($this->tmpDir);
         }
-
-        m::close();
     }
 
     /**
@@ -66,24 +77,13 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdapterRunsDefaultPhpunitCommand()
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => __DIR__ . '/_files/phpunit',
-            'getTestRunDirectory'      => __DIR__ . '/_files/phpunit',
-            'getBaseDirectory'      => __DIR__ . '/_files/phpunit',
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => 'MM1_MathTest MathTest.php'
-        ]);
+        $this->container->method('getSourceList')->willReturn(__DIR__ . '/_files/phpunit');
+        $this->container->method('getTestRunDirectory')->willReturn(__DIR__ . '/_files/phpunit');
+        $this->container->method('getBaseDirectory')->willReturn(__DIR__ . '/_files/phpunit');
+        $this->container->method('getAdapterConstraints')->willReturn('MM1_MathTest MathTest.php');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
@@ -92,26 +92,28 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($adapter->ok($result));
     }
 
+    public function testAdapterRunsPhpunitCommandWithAllTestsFileTarget()
+    {
+        $this->container->method('getSourceList')->willReturn(__DIR__ . '/_files/phpunit2');
+        $this->container->method('getTestRunDirectory')->willReturn(__DIR__ . '/_files/phpunit2');
+        $this->container->method('getBaseDirectory')->willReturn(__DIR__ . '/_files/phpunit2');
+        $this->container->method('getAdapterConstraints')->willReturn('AllTests.php');
+
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
+        $process->run();
+
+        $result = $process->getOutput();
+
+        $this->assertTrue($adapter->ok($result));
+    }
+
     public function testAdapterDetectsTestsPassing()
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => $this->root,
-            'getTestRunDirectory'      => $this->root,
-            'getBaseDirectory'      => $this->root,
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => 'PassTest'
-        ]);
+        $this->container->method('getAdapterConstraints')->willReturn('PassTest');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
@@ -121,24 +123,10 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterDetectsTestsFailingFromTestFail()
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => $this->root,
-            'getTestRunDirectory'      => $this->root,
-            'getBaseDirectory'      => $this->root,
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => 'FailTest'
-        ]);
+        $this->container->method('getAdapterConstraints')->willReturn('FailTest');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
@@ -149,24 +137,10 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterDetectsTestsFailingFromException()
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => $this->root,
-            'getTestRunDirectory'      => $this->root,
-            'getBaseDirectory'      => $this->root,
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => 'ExceptionTest'
-        ]);
+        $this->container->method('getAdapterConstraints')->willReturn('ExceptionTest');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
@@ -177,24 +151,10 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
 
     public function testAdapterDetectsTestsFailingFromError()
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => $this->root,
-            'getTestRunDirectory'      => $this->root,
-            'getBaseDirectory'      => $this->root,
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => 'ErrorTest'
-        ]);
+        $this->container->method('getAdapterConstraints')->willReturn('ErrorTest');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
@@ -207,6 +167,7 @@ class PhpunitTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('This seems redundant as it should never happen - fail on first failure is set');
         $adapter = new Phpunit;
+
         $output = <<<OUTPUT
 TAP version 13
 not ok 1 - Error: Humbug\Adapter\PhpunitTest::testAdapterRunsDefaultPhpunitCommand
@@ -226,28 +187,17 @@ OUTPUT;
      */
     public function testShouldNotNotifyRegressionWhileRunningProcess($directory)
     {
-        $container = m::mock('\Humbug\Container');
-        $container->shouldReceive([
-            'getSourceList'    => $directory,
-            'getTestRunDirectory'   => $directory,
-            'getBaseDirectory'      => $directory,
-            'getTimeout'            => 1200,
-            'getTempDirectory'     => $this->tmpDir,
-            'getAdapterOptions'     => [],
-            'getBootstrap'          => '',
-            'getAdapterConstraints' => ''
-        ]);
+        $this->container->method('getSourceList')->willReturn($directory);
+        $this->container->method('getTestRunDirectory')->willReturn($directory);
+        $this->container->method('getBaseDirectory')->willReturn($directory);
+        $this->container->method('getAdapterConstraints')->willReturn('');
 
-        $adapter = new Phpunit;
-        $process = $adapter->getProcess(
-            $container,
-            true,
-            true
-        );
+        $adapter = new Phpunit();
+        $process = $adapter->getProcess($this->container, true, true);
         $process->run();
 
         $result = $process->getOutput();
-      
+
         $this->assertEquals(2, $adapter->hasOks($result), $process->getErrorOutput());
         $this->assertContains('##teamcity[', $result);
         $this->assertTrue($adapter->ok($result), "Regression output: \n" . $result);
@@ -258,7 +208,7 @@ OUTPUT;
         return [
             [__DIR__ . '/_files/regression/wildcard-dirs'],
             ['tests/Adapter/_files/regression/wildcard-dirs'],
-            [__DIR__ . '/_files/regression/server-argv']
+            [__DIR__ . '/_files/regression/server-argv'],
         ];
     }
 }

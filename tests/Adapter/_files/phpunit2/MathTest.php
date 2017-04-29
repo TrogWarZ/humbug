@@ -1,10 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once dirname(__FILE__).'/Math.php';
 
-class MM2_MathTest extends \PHPUnit_Framework_TestCase
+class MM2_MathTest extends TestCase
 {
-
     /**
      * @group PHPUnitRunnerTesting
      */

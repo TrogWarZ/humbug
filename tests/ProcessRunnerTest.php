@@ -16,9 +16,10 @@ namespace Humbug\Test;
 use Humbug\Adapter\AdapterAbstract;
 use Humbug\Adapter\Phpunit;
 use Humbug\ProcessRunner;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\PhpProcess;
 
-class ProcessRunnerTest extends \PHPUnit_Framework_TestCase
+class ProcessRunnerTest extends TestCase
 {
     /**
      * @var ProcessRunner

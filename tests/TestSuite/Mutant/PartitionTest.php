@@ -11,8 +11,9 @@
 namespace Humbug\Test\TestSuite\Mutant;
 
 use Humbug\TestSuite\Mutant\PartitionBuilder;
+use PHPUnit\Framework\TestCase;
 
-class PartitionTest extends \PHPUnit_Framework_TestCase
+class PartitionTest extends TestCase
 {
     public function testGetBatchesReturnsMutantsInPartitions()
     {

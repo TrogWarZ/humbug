@@ -13,9 +13,9 @@
 namespace Humbug\Test\Adapter\Phpunit;
 
 use Humbug\Adapter\Phpunit\ConfigurationLocator;
-use Humbug\Adapter\Phpunit\XmlConfiguration;
+use PHPUnit\Framework\TestCase;
 
-class ConfigurationLocatorTest extends \PHPUnit_Framework_TestCase
+class ConfigurationLocatorTest extends TestCase
 {
     public function testShouldLocateConfiguration()
     {

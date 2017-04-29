@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Arithmetic;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class BitwiseAndTest extends \PHPUnit_Framework_TestCase
+class BitwiseAndTest extends TestCase
 {
     public function testReturnsTokenEquivalentToBitwiseOrOperator()
     {

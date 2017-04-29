@@ -13,8 +13,9 @@
 namespace Humbug\Test\Adapter\Phpunit\XmlConfiguration;
 
 use Humbug\Adapter\Phpunit\XmlConfiguration\ObjectVisitor;
+use PHPUnit\Framework\TestCase;
 
-class ObjectVisitorTest extends \PHPUnit_Framework_TestCase
+class ObjectVisitorTest extends TestCase
 {
     /**
      * @var \DOMDocument

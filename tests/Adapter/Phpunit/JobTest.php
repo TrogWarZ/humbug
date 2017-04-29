@@ -12,8 +12,9 @@
 namespace Humbug\Test\Adapter\Phpunit;
 
 use Humbug\Adapter\Phpunit\Job;
+use PHPUnit\Framework\TestCase;
 
-class JobTest extends \PHPUnit_Framework_TestCase
+class JobTest extends TestCase
 {
     public function testGenerateReturnsPHPScriptRenderedWithCurrentRunnersSettingsAndSerialisedMutationArray()
     {

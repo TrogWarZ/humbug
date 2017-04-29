@@ -16,8 +16,9 @@ use Humbug\Mutant;
 use Humbug\Mutation;
 use Humbug\Report\Text;
 use Humbug\TestSuite\Mutant\Result;
+use PHPUnit\Framework\TestCase;
 
-class TextTest extends \PHPUnit_Framework_TestCase
+class TextTest extends TestCase
 {
     private $diff = <<<DIFF
 --- Original

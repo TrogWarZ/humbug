@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Number;
 
 use Humbug\Mutator\Number\IntegerValue;
+use PHPUnit\Framework\TestCase;
 
-class IntegerValueTest extends \PHPUnit_Framework_TestCase
+class IntegerValueTest extends TestCase
 {
     public function testReturnsTokenSwitchingZeroForOne()
     {

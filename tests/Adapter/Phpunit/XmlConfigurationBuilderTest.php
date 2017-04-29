@@ -16,8 +16,10 @@ use Humbug\Adapter\Locator;
 use Humbug\Adapter\Phpunit\XmlConfiguration;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ObjectVisitor;
 use Humbug\Adapter\Phpunit\XmlConfigurationBuilder;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 
-class XmlConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
+class XmlConfigurationBuilderTest extends TestCase
 {
     /**
      * @var FakeConfigurationBuilder
@@ -188,7 +190,7 @@ class FakeConfiguration extends XmlConfiguration
 
     public function wasCalledWith($function, $arguments, $at = 1)
     {
-        \PHPUnit_Framework_Assert::assertTrue(isset($this->calls[$at][$function]));
-        \PHPUnit_Framework_Assert::assertEquals($arguments, $this->calls[$at][$function]);
+        Assert::assertTrue(isset($this->calls[$at][$function]));
+        Assert::assertEquals($arguments, $this->calls[$at][$function]);
     }
 }

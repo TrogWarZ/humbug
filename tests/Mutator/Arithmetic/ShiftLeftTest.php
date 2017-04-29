@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Arithmetic;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class ShiftLeftTest extends \PHPUnit_Framework_TestCase
+class ShiftLeftTest extends TestCase
 {
     public function testReturnsTokenEquivalentToShiftRightOperator()
     {

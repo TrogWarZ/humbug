@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Boolean;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class LogicalLowerOrTest extends \PHPUnit_Framework_TestCase
+class LogicalLowerOrTest extends TestCase
 {
     public function testReturnsTokenEquivalentToLogicalLowerAnd()
     {

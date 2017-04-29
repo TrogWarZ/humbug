@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Boolean;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class LogicalAndTest extends \PHPUnit_Framework_TestCase
+class LogicalAndTest extends TestCase
 {
     public function testReturnsTokenEquivalentToBooleanOr()
     {

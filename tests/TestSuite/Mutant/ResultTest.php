@@ -11,8 +11,9 @@
 namespace Humbug\Test\TestSuite\Mutant;
 
 use Humbug\TestSuite\Mutant\Result;
+use PHPUnit\Framework\TestCase;
 
-class ResultTest extends \PHPUnit_Framework_TestCase
+class ResultTest extends TestCase
 {
     public function testGetStatusCodeReturnsCorrectCode()
     {

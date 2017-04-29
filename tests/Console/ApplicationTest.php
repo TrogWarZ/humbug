@@ -12,11 +12,12 @@
 namespace Humbug\Test\Console;
 
 use Humbug\Console\Application;
+use PHPUnit\Framework\TestCase;
 
 /**
  * For actually running Humbug, refer to the Behat feature directory
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     public function testApplicationHasHumbugLogoSet()
     {

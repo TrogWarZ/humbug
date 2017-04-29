@@ -13,8 +13,9 @@ namespace Humbug\Test\Mutator\ReturnValue;
 
 use Humbug\Mutator\ReturnValue\IntegerNegation;
 use Humbug\Utility\Tokenizer;
+use PHPUnit\Framework\TestCase;
 
-class IntegerNegationTest extends \PHPUnit_Framework_TestCase
+class IntegerNegationTest extends TestCase
 {
     public function testNotMutatesWithValueReturnTrue()
     {

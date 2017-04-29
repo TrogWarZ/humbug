@@ -12,11 +12,10 @@
 namespace Humbug\Test\File;
 
 use Humbug\File\Collection;
-use Mockery as m;
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
     private $tmp;
 

@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Arithmetic;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class SubtractionTest extends \PHPUnit_Framework_TestCase
+class SubtractionTest extends TestCase
 {
     public function testReturnsTokenEquivalentToAdditionOperator()
     {

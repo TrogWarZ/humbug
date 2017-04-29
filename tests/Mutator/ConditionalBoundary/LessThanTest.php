@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\ConditionalBoundary;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class LessThanTest extends \PHPUnit_Framework_TestCase
+class LessThanTest extends TestCase
 {
     public function testReturnsTokenEquivalentToLessThanOrEqualTo()
     {

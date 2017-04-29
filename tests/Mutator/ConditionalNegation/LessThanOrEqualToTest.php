@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\ConditionalNegation;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class LessThanOrEqualToTest extends \PHPUnit_Framework_TestCase
+class LessThanOrEqualToTest extends TestCase
 {
     public function testReturnsTokenEquivalentToGreaterThan()
     {

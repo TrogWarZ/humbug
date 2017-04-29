@@ -12,10 +12,11 @@ namespace Humbug\Test;
 
 use Humbug\Container;
 use Humbug\MutableIterator;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\Finder\Finder;
 
-class MutableIteratorTest extends \PHPUnit_Framework_TestCase
+class MutableIteratorTest extends TestCase
 {
     public function testIteratorIsEmptyWhenNoMutablesAreFound()
     {

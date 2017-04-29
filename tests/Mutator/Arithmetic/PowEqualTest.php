@@ -12,8 +12,9 @@
 namespace Humbug\Test\Mutator\Arithmetic;
 
 use Humbug\Mutator;
+use PHPUnit\Framework\TestCase;
 
-class PowEqualTest extends \PHPUnit_Framework_TestCase
+class PowEqualTest extends TestCase
 {
     public function testReturnsTokenEquivalentToDivEqualOperator()
     {

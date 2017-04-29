@@ -14,17 +14,22 @@
 namespace Humbug\Test;
 
 use Humbug\Container;
-use Humbug\Exception\InvalidArgumentException;
-use Mockery as m;
+use Humbug\Generator;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Finder\Finder;
 
-class ContainerTest extends \PHPUnit_Framework_TestCase
+class ContainerTest extends TestCase
 {
+    /**
+     * @var Container
+     */
     private $container;
 
     public function setup()
     {
-        $this->container = new Container(['timeout'=>10]);
+        $this->container = new Container(['timeout' => 10]);
     }
 
     public function testShouldHaveAdapterOptionsAfterCreate()
@@ -46,11 +51,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('test-option', $container->get('test'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGetShouldRiseExceptionForUnknownOption()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $input = [
             'options' => null
         ];
@@ -75,7 +79,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSetSrcList()
     {
-        $list = new \stdClass;
+        $list = new stdClass();
         $list->foo = 'bar';
         $result = $this->container->setSourceList($list);
         $this->assertEquals('bar', $this->container->getSourceList()->foo);
@@ -90,12 +94,11 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->container, $result);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testsetTempDirectoryThrowsExceptionOnUnwriteableParam()
     {
-        $result = $this->container->setTempDirectory('/really/does/not/exist');
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->container->setTempDirectory('/really/does/not/exist');
     }
 
     public function testSetPrimaryTimeout()
@@ -117,10 +120,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testGettingMutableFiles()
     {
         $expected = ['/mutate/me.php'];
-        $generator = m::mock('Humbug\\Generator');
-        $finder = m::mock('Symfony\\Component\\Finder\\Finder');
-        $generator->shouldReceive('generate')->with($finder)->andReturn(null);
-        $generator->shouldReceive('getMutables')->andReturn($expected);
+        $generator = $this->createMock(Generator::class);
+        $finder = $this->createMock(Finder::class);
+        $generator->expects($this->any())->method('generate')->with($finder)->willReturn(null);
+        $generator->expects($this->any())->method('getMutables')->willReturn($expected);
         $result = $this->container->setGenerator($generator);
         $this->assertSame($this->container, $result);
         $result2 = $this->container->getMutableFiles($finder);

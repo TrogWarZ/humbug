@@ -1,8 +1,9 @@
 <?php
 
-class ErrorTest extends \PHPUnit_Framework_TestCase
-{
+use PHPUnit\Framework\TestCase;
 
+class ErrorTest extends TestCase
+{
     /**
      * @group PHPUnitRunnerTesting
      */

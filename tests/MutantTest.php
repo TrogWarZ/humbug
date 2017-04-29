@@ -17,12 +17,13 @@ use Humbug\Exception\NoCoveringTestsException;
 use Humbug\Mutation;
 use Humbug\TestSuite\Mutant\FileGenerator;
 use Humbug\Utility\CoverageData;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Mockery as m;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
-class MutantTest extends \PHPUnit_Framework_TestCase
+class MutantTest extends TestCase
 {
     private $container;
 
