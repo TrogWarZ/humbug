@@ -19,6 +19,10 @@
         {
             "type": "git",
             "url": "https://github.com/omissis/phpunit-extensions.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/omissis/phpunit-accelerator.git"
         }
     ],
     "require": {
@@ -28,7 +32,7 @@
         "symfony/process": "^2.8|^3.0",
         "symfony/event-dispatcher": "^2.8|^3.0",
         "sebastian/diff": "^1.4",
-        "padraic/phpunit-accelerator": "^1.0.2",
+        "padraic/phpunit-accelerator": "dev-feature/phpunit6-support as 2.0.x-dev",
         "padraic/phpunit-extensions": "dev-feature/phpunit6-support as 2.0.x-dev",
         "padraic/phar-updater": "^1.0.3"
     },
