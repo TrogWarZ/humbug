@@ -85,7 +85,7 @@ class Phpunit extends AdapterAbstract
         file_put_contents($configFile, $xmlConfiguration->generateXML());
 
         foreach ($jobopts['command'] as $key => $value) {
-            if ($value == '--configuration' || $value == '-C') {
+            if ($value === '--configuration' || $value === '-C') {
                 unset($jobopts['command'][$key]);
                 unset($jobopts['command'][$key+1]);
             } elseif (preg_match('%\\-\\-configuration=%', $value)) {
