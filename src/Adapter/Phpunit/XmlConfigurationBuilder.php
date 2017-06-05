@@ -13,13 +13,16 @@
 namespace Humbug\Adapter\Phpunit;
 
 use Humbug\Adapter\Locator;
+use Humbug\Adapter\Phpunit\Listeners\JsonLoggingTimeCollectorListener;
+use Humbug\Adapter\Phpunit\Listeners\TestSuiteFilterListener;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ObjectVisitor;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ReplacePathVisitor;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ReplaceWildcardVisitor;
+use MyBuilder\PhpunitAccelerator\TestListener;
 
 class XmlConfigurationBuilder
 {
-    protected $xmlConfigurationClass = '\Humbug\Adapter\Phpunit\XmlConfiguration';
+    protected $xmlConfigurationClass = XmlConfiguration::class;
 
     /**
      * @var string
@@ -104,12 +107,12 @@ class XmlConfigurationBuilder
         }
 
         if ($this->acceleratorListener) {
-            $acceleratorListener = new ObjectVisitor('\MyBuilder\PhpunitAccelerator\TestListener', [true]);
+            $acceleratorListener = new ObjectVisitor(TestListener::class, [true]);
             $xmlConfiguration->addListener($acceleratorListener);
         }
 
         if ($this->pathToTimeStats) {
-            $timeCollectionListener = new ObjectVisitor('\Humbug\Adapter\Phpunit\Listeners\JsonLoggingTimeCollectorListener', [
+            $timeCollectionListener = new ObjectVisitor(JsonLoggingTimeCollectorListener::class, [
                 $this->pathToTimeStats,
                 $xmlConfiguration->getRootTestSuiteNestingLevel()
             ]);
@@ -117,7 +120,7 @@ class XmlConfigurationBuilder
         }
 
         if (!empty($this->filterTestSuites) || $this->filterStatsPath) {
-            $filterListener = new ObjectVisitor('\Humbug\Adapter\Phpunit\Listeners\TestSuiteFilterListener', array_merge([
+            $filterListener = new ObjectVisitor(TestSuiteFilterListener::class, array_merge([
                 $xmlConfiguration->getRootTestSuiteNestingLevel(),
                 $this->filterStatsPath
             ], $this->filterTestSuites));

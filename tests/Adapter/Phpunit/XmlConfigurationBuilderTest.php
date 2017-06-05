@@ -13,9 +13,12 @@
 namespace Humbug\Test\Adapter\Phpunit;
 
 use Humbug\Adapter\Locator;
+use Humbug\Adapter\Phpunit\Listeners\JsonLoggingTimeCollectorListener;
+use Humbug\Adapter\Phpunit\Listeners\TestSuiteFilterListener;
 use Humbug\Adapter\Phpunit\XmlConfiguration;
 use Humbug\Adapter\Phpunit\XmlConfiguration\ObjectVisitor;
 use Humbug\Adapter\Phpunit\XmlConfigurationBuilder;
+use MyBuilder\PhpunitAccelerator\TestListener;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +33,7 @@ class XmlConfigurationBuilderTest extends TestCase
 
     protected function setUp()
     {
-        $this->configurationDir = realpath(__DIR__ . '/../_files/phpunit-conf');
+        $this->configurationDir = realpath(dirname(__DIR__) . '/_files/phpunit-conf');
 
         $this->builder = new FakeConfigurationBuilder($this->configurationDir);
     }
@@ -39,7 +42,7 @@ class XmlConfigurationBuilderTest extends TestCase
     {
         $xmlConfiguration = $this->builder->getConfiguration();
 
-        $this->assertInstanceOf('Humbug\Adapter\Phpunit\XmlConfiguration', $xmlConfiguration);
+        $this->assertInstanceOf(XmlConfiguration::class, $xmlConfiguration);
 
         $this->assertEquals(sys_get_temp_dir() . '/humbug.phpunit.bootstrap.php', $xmlConfiguration->getBootstrap());
 
@@ -65,7 +68,7 @@ class XmlConfigurationBuilderTest extends TestCase
 
         $xmlConfiguration = $this->builder->getConfiguration();
 
-        $acceleratorListener = new ObjectVisitor('\MyBuilder\PhpunitAccelerator\TestListener', [true]);
+        $acceleratorListener = new ObjectVisitor(TestListener::class, [true]);
 
         $xmlConfiguration->wasCalledWith('addListener', [$acceleratorListener]);
     }
@@ -102,7 +105,7 @@ class XmlConfigurationBuilderTest extends TestCase
         $xmlConfiguration = $this->builder->getConfiguration();
 
         $timeCollectionListener = new ObjectVisitor(
-            '\Humbug\Adapter\Phpunit\Listeners\JsonLoggingTimeCollectorListener',
+            JsonLoggingTimeCollectorListener::class,
             [
                 'path/to/stats.json',
                 0 //root suite nesting level
@@ -122,7 +125,7 @@ class XmlConfigurationBuilderTest extends TestCase
 
         $xmlConfiguration = $this->builder->getConfiguration();
 
-        $filterListener = new ObjectVisitor('\Humbug\Adapter\Phpunit\Listeners\TestSuiteFilterListener', [
+        $filterListener = new ObjectVisitor(TestSuiteFilterListener::class, [
             0, //root suite nesting level
             'path/to/stats.json',
             'suite'
@@ -156,7 +159,7 @@ class XmlConfigurationBuilderTest extends TestCase
  */
 class FakeConfigurationBuilder extends XmlConfigurationBuilder
 {
-    protected $xmlConfigurationClass = '\Humbug\Test\Adapter\Phpunit\FakeConfiguration';
+    protected $xmlConfigurationClass = FakeConfiguration::class;
 }
 
 class FakeConfiguration extends XmlConfiguration
